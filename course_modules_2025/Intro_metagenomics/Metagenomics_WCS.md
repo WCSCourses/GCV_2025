@@ -16,9 +16,11 @@ We’ll run the tutorial in the ~/metagenomics directory (remember the ~ means t
 - data directory: contains the sample and negative control datasets, as well as the human genome (it’s not the actual human genome due to space constraints, but it will work for this practical)
 - kraken_db directory: contains the database that we’ll use for classification later
 
+Note that the sample and negative control were sequenced using Illumina paired end sequencing, and there is a separate file for each of the directions. sample1_1.fq.gz contains the read 1s and sample1_2.fq.gz contains the read 2s.
+
 Throughout this practical, you should process the sample and negative control datasets in the same way. This means you’ll run most commands twice, once for the sample and once for the negative control (don’t worry, there are faster ways to do this if you have lots of samples!). You’ll compare the results at the end.
 
-Try to work out the commands yourself first. If you get stuck, there are some clues within the tutorial, and the answers are in a separate document. Don’t worry if you don’t finish the whole tutorial in the time allowed – you’ll get more out of it if you try to do a few steps yourself and all the commands are available for you to refer to later.
+Try to work out the commands yourself first. If you get stuck, there are some clues within the tutorial, and the answers are in a separate document. Don’t worry if you don’t finish the whole tutorial in the time allowed – all the commands are available for you to refer to later.
 
 ## Quality Control
 
@@ -53,12 +55,14 @@ Again, use your previous notes. Remember to index the genome first.
 
 **4.	How could we use our alignment to get the non-human reads?**
 
-You’ve not yet been given the commands to do this, so they are below. Remember you might need to change the file names if you’ve used a different naming convention. Make sure you understand what they’ve doing before you run them!
+You’ve not yet been given the commands to do this, so they are below. Remember you might need to change the input file name to match your output from the last step. Make sure you understand what they are doing before you run them!
 
 ```
 samtools view -bf 4 -h ~/metagenomics/sample1.sam > ~/metagenomics/sample1_nonhuman.bam
+samtools view -bf 4 -h ~/metagenomics/neg_control.sam > ~/metagenomics/neg_control_nonhuman.bam
 
 samtools fastq ~/metagenomics/sample1_nonhuman.bam -1 ~/metagenomics/sample1_nonhuman_1.fq -2 ~/metagenomics/sample1_nonhuman_2.fq
+samtools fastq ~/metagenomics/neg_control_nonhuman.bam -1 ~/metagenomics/neg_control_nonhuman_1.fq -2 ~/metagenomics/neg_control_nonhuman_2.fq
 ```
 You can ignore this error message:
 ```
@@ -105,10 +109,10 @@ Again, use the manual online or the help command to do this. The database you ne
    Your command should take the form:
 
    <pre>
-bracken -d $kraken_db -i <i>kraken_report</i> -o <i>output_file_name</i>
+bracken -d <i>kraken_database_directory</i> -i <i>kraken_report</i> -o <i>output_file_name</i> -t 3
     </pre>
 
-    Swap the parts in italics for your file names.
+Swap the parts in italics for your file names.
     
 </details>
 
@@ -170,7 +174,9 @@ After you've logged in, navigate to the [Medical Detectives dataset](https://czi
 
 ## Quality control
 
-**12.    Are there any samples that look different to the others? What might these be?**
+**12.    Are there any samples that look different to the others? What might they be?**
+
+For questions 13-15, don't worry about the exact numbers - just make sure you know where to find out these details.
 
 **13.    How many raw reads were there for each sample?**
 
@@ -202,7 +208,7 @@ Hint: look at the descriptions of the various scores [here](https://chanzuckerbe
 <details>
 <summary>Clues</summary>
     
-    Try filtering by Z score.
+    Try filtering by NT Z score or NR Z score.
     
 </details>
 
@@ -210,7 +216,7 @@ Hint: look at the descriptions of the various scores [here](https://chanzuckerbe
 <details>
 <summary>Clues</summary>
     
-    Try using the filters to select just viruses and known pathogens.
+    Try using the filters in question 16 and select just viruses and known pathogens.
     
 </details>
 
@@ -227,8 +233,6 @@ Hint: look at the descriptions of the various scores [here](https://chanzuckerbe
 **19. What other scores are shown on the CZID output? Which ones might be particularly useful?**
 
 **20. Can you generate a consensus sequence for one of the viruses you've found using CZID?**
-
-**21. Can you identify any phylogenetic relationships between viruses found in different samples in the same dataset?**
 
 # Acknowledgements
 This tutorial was orginally developed by Sarah Buddle for the Wellcome Connecting Science course in [Genomics for Clinical Virology](https://github.com/WCSCourses/GCV_2025). The second section of the tutorial is adapted from the training materials and documentation produced by CZID at [https://czid.org/](https://czid.org/). 
