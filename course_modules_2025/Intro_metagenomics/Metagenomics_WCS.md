@@ -9,18 +9,20 @@ In this tutorial, you will analyse a (not real!) dataset from a CSF sample from 
 
 First, activate the conda environment that contains some of the required software. Run the command:
 ```
-conda activate bioinfo_env
+conda activate bioinformatics_env
 ```
 
 We’ll run the tutorial in the ~/metagenomics directory (remember the ~ means the home directory). Navigate to this directory and have a look inside. You should find:
 - data directory: contains the sample and negative control datasets, as well as the human genome (it’s not the actual human genome due to space constraints, but it will work for this practical)
 - kraken_db directory: contains the database that we’ll use for classification later
 
-Note that the sample and negative control were sequenced using Illumina paired end sequencing, and there is a separate file for each of the directions. sample1_1.fq.gz contains the read 1s and sample1_2.fq.gz contains the read 2s.
+Note that the sample and negative control were sequenced using Illumina paired end sequencing, and there is a separate file for each direction. sample1_1.fq.gz contains the read 1s and sample1_2.fq.gz contains the read 2s.
 
 Throughout this practical, you should process the sample and negative control datasets in the same way. This means you’ll run most commands twice, once for the sample and once for the negative control (don’t worry, there are faster ways to do this if you have lots of samples!). You’ll compare the results at the end.
 
 Try to work out the commands yourself first. If you get stuck, there are some clues within the tutorial, and the answers are in a separate document. Don’t worry if you don’t finish the whole tutorial in the time allowed – all the commands are available for you to refer to later.
+
+After each step, it's a good idea to have a look at the output files using the command less (except for bam files, which need to be converted to sam before they can be viewed in this way). Have a look at the file structure and see if you understand what it means.
 
 ## Quality Control
 
@@ -33,7 +35,7 @@ The files are available in the folder ~/metagenomics/data
 Use your notes from a previous session on this course.
 
 <details>
-<summary>Clues</summary>
+<summary><b>Clues</b></summary>
     
 Try using trim_galore from the FileFormats-QC session.    
 </details>
@@ -46,9 +48,8 @@ We want to find out what microbes are in the sample, so we are not interested in
 Again, use your previous notes. Remember to index the genome first.
 
 <details>
-<summary>Clues</summary>
-    
-    Try using bwa mem from the ReferenceAlignment session.    
+<summary><b>Clues</b></summary>
+Try using bwa mem from the ReferenceAlignment session.    
 </details>
 
 **3.	What is the output format of the alignment?**
@@ -64,14 +65,14 @@ samtools view -bf 4 -h ~/metagenomics/neg_control.sam > ~/metagenomics/neg_contr
 samtools fastq ~/metagenomics/sample1_nonhuman.bam -1 ~/metagenomics/sample1_nonhuman_1.fq -2 ~/metagenomics/sample1_nonhuman_2.fq
 samtools fastq ~/metagenomics/neg_control_nonhuman.bam -1 ~/metagenomics/neg_control_nonhuman_1.fq -2 ~/metagenomics/neg_control_nonhuman_2.fq
 ```
-You can ignore this error message:
+You can ignore this error message if it appears:
 ```
 samtools: /home/manager/miniconda3/envs/bioinfo_env/bin/../lib/libtinfow.so.6: no version information available (required by samtools)
 ```
 
 ## Classification
 
-Now you’ve performed quality control and removed the human reads, we’re ready to run a classifier to determine what species are present. We’re going to use the programs kraken2 and bracken, which are some of the most widely used tools for this purpose.
+Now you’ve performed quality control and removed the human reads, we’re ready to run a classifier to determine what species are present by comparison to a reference database. We’re going to use the programs kraken2 and bracken, which are some of the most widely used tools for this purpose.
 Kraken2 and Bracken need a database of known reference sequences. This can be found in the ~/metagenomics/kraken_db directory. If you’re trying this yourself on your own computer, you can download prebuilt databases from: https://benlangmead.github.io/aws-indexes/k2
 Whenever you run a new bioinformatics tool, it’s a good idea to look at search for the manual online. You can usually find out how to run the tool using the help command, for example:
 
@@ -85,26 +86,34 @@ kraken2 -h
 Search for the manual online or use the help command. You won't need most of the options - the default parameters are fine for this purpose. Hint: you should use the --report parameter.
 
 <details>
-<summary>Clues</summary>
+<summary><b>Clues</b></summary>
     
-   Your command should take the form:
+Your command should take the form:
 
    <pre>
 kraken2 --db <i>kraken_database_directory</i> --paired <i>human_filtered_input_file_1 human_filtered_input_file_2</i> --report <i>output_report_filename</i> > <i>read_classifications_filename</i>
     </pre>
 
-    Swap the parts in italics for your file names.
+Swap the parts in italics for your file names.
     
 </details>
 
-Once you’ve run kraken2, you can perform post-processing with bracken.
+**6.	What do the numbers in the kraken2 report mean?**
 
-**6.	Write a command to run bracken on your kraken2 output.**
+<details>
+<summary><b>Clues</b></summary>
+Look at the kraken2 manual at https://github.com/DerrickWood/kraken2/wiki/Manual#sample-report-output-format.
+    
+</details>
+
+Once you’ve run kraken2, you can perform post-processing with bracken. Bracken takes into account information from all the reads and may reassign some reads to better fit the overall profile.
+
+**7.	Write a command to run bracken on your kraken2 output.**
 
 Again, use the manual online or the help command to do this. The database you need is the same one as for kraken2. Change the threshold parameter (-t) to 3 for this small test run. You can leave read_len and level as their defaults.
 
 <details>
-<summary>Clues</summary>
+<summary><b>Clues</b></summary>
     
    Your command should take the form:
 
@@ -116,51 +125,88 @@ Swap the parts in italics for your file names.
     
 </details>
 
-## Interpretation
-
-**7.	What species are present in your sample?**
+**8.	What do the numbers in the bracken report mean?**
 
 <details>
-<summary>Clues</summary>
+<summary><b>Clues</b></summary>
+Look at the file ~/metagenomics/sample1_bracken.txt from your previous command.
+Look at the column heading and the bracken manual at https://ccb.jhu.edu/software/bracken/index.shtml?t=manual (bottom of the page). 
     
-    Look at the report produced by Bracken.    
 </details>
 
-**8.	Look at the negative control. What can you conclude about what might be causing the disease in the patient?**
+## Interpretation
+
+**9.	What species are present in your sample?**
 
 <details>
-<summary>Clues</summary>
-    
-    Are there any species that are present in both the sample and negative control?    
+<summary><b>Clues</b></summary>
+Look at the report produced by Bracken.    
+</details>
+
+**10.	Look at the negative control. What can you conclude about what might be causing the disease in the patient?**
+
+<details>
+<summary><b>Clues</b></summary>
+Are there any species that are present in both the sample and negative control?    
 </details>
 
 ## Extension questions
 
-Save these until the end if you're short on time!
+**Save these until the end if you're short on time!**
 
-**9.	Using what you've learnt in previous sessions, what further analysis you think might be useful on these datasets?**
+Sometimes you might want to extract the reads that were classified as a particular virus for further analysis.
+
+**11.    How can you tell which reads were assigned to Human mastadenovirus F?**
 
 <details>
-<summary>Clues</summary>
-    
-    How would you find out where the reads come from in the viral genome? 
+<summary><b>Clues</b></summary>
+Look in ~/metagenomics/sample1_kraken_readclassifications.txt 
 </details>
 
-
-**10.	How could you run the commands in this tutorial for multiple samples at a time?**
-
 <details>
-<summary>Clues</summary>
-    
-    Try writing a for loop in bash.
+<summary><b>Clues</b></summary>
+The taxon ID number of Human mastadenovirus F is 130309.
 </details>
 
-**11.	How do Kraken2 and Bracken work?**
+**12.    Choose a read that was assigned to adenovirus. How could you extract the entry corresponding to this read from the nonhuman fastq file?**
+<details>
+<summary><b>Clues</b></summary>
+Try using grep. How many lines correspond to each read in a fastq file? What grep options could you use to extract all these lines?
+</details>
 
 <details>
-<summary>Clues</summary>
-    
-    Look at the published articles that describe these protocols.
+<summary><b>Clues</b></summary>
+Your grep command won't work if you're searching a fq.gz (gzipped) file. Using the unzipped nonhuman fastq file or unzip the file before running your command.
+</details>
+
+**13.    Use online blast to analyse this read. What do you notice?**
+
+<details>
+<summary><b>Clues</b></summary>
+Go to https://blast.ncbi.nlm.nih.gov/ and select nucleotide blast. Paste the read sequence from the previous question into the box and click submit. 
+</details>
+
+**14.	Using what you've learnt in previous sessions, what further analyses you think might be useful on these datasets? (No need to run them.)**
+
+<details>
+<summary><b>Clues</b></summary>
+How would you find out where the reads come from in the viral genome? 
+</details>
+
+**15.	How could you run the commands in this tutorial for multiple samples at a time? Write a suitable script.**
+
+<details>
+<summary><b>Clues</b></summary>
+Try writing a for loop in bash.
+</details>
+
+**16.	How could you adapt your answers to questions 11-12 to extract all the reads that were assigned to huamn mastadenovirus F?**
+
+**17.	How do Kraken2 and Bracken work?**
+
+<details>
+<summary><b>Clues</b></summary>
+Look at the published articles that describe these tools.
 </details>
 
 #  Online tools for metagenomics analysis
@@ -174,23 +220,23 @@ After you've logged in, navigate to the [Medical Detectives dataset](https://czi
 
 ## Quality control
 
-**12.    Are there any samples that look different to the others? What might they be?**
+**18.    Are there any samples that look different to the others? What might they be?**
 
 For questions 13-15, don't worry about the exact numbers - just make sure you know where to find out these details.
 
-**13.    How many raw reads were there for each sample?**
+**19.    Roughly how many raw reads were there for each sample?**
 
 <details>
-<summary>Clues</summary>
+<summary><b>Clues</b></summary>
     
     Use the + button to the right of the column headings to add additional fields.
 </details>
 
-**14.    Roughly what proportion of the reads passed quality control? What about filtering? What do these metrics mean?**
+**20.    Roughly what proportion of the reads passed quality control? What about filtering? What do these metrics mean?**
 
-**15. During which part of QC or filtering were most of the reads lost?**
+**21. During which part of QC or filtering were most of the reads lost?**
 <details>
-<summary>Clues</summary>
+<summary><b>Clues</b></summary>
     
     Use the bar chart button towards the top left of the screen to view some summary plots.
     ERCC reads refer to spike-in controls for quantification - you can ignore these for today!
@@ -203,26 +249,26 @@ Click on the sample for Patient 009 to view the report in more detail.
 
 When using CZID, you should generate a background model using your negative control samples. This takes some time to run so it has been done for you today. Choose the background called Medical_Detectives_v2_WCS at the top of the page.
 
-**16. How can you filter the output to identify species that were present at higher abundances in the sample than in the negative control?**
+**22. How can you filter the output to identify species that were present at higher abundances in the sample than in the negative control?**
 Hint: look at the descriptions of the various scores [here](https://chanzuckerberg.zendesk.com/hc/en-us/articles/360034790574-Sample-Report-Table).
 <details>
-<summary>Clues</summary>
+<summary><b>Clues</b></summary>
     
     Try filtering by NT Z score or NR Z score.
     
 </details>
 
-**17. What is the main viral infection that we might report for this patient? Are there any others?**
+**23. What is the main viral infection that we might report for this patient? Are there any others?**
 <details>
-<summary>Clues</summary>
+<summary><b>Clues</b></summary>
     
     Try using the filters in question 16 and select just viruses and known pathogens.
     
 </details>
 
-**18. Visualise the coverage for the viruses you've found. What do you notice?**
+**24. Visualise the coverage for the viruses you've found. What do you notice?**
 <details>
-<summary>Clues</summary>
+<summary><b>Clues</b></summary>
     
     Hover next to the virus name and click coverage visualisation.
     
@@ -230,12 +276,12 @@ Hint: look at the descriptions of the various scores [here](https://chanzuckerbe
 
 ## Extension questions
 
-**19. What other scores are shown on the CZID output? Which ones might be particularly useful?**
+**25. What other scores are shown on the CZID output? Which ones might be particularly useful?**
 
-**20. Can you generate a consensus sequence for one of the viruses you've found using CZID?**
+**26. Can you generate a consensus sequence for one of the viruses you've found using CZID?**
 
 # Acknowledgements
-This tutorial was orginally developed by Sarah Buddle for the Wellcome Connecting Science course in [Genomics for Clinical Virology](https://github.com/WCSCourses/GCV_2025). The second section of the tutorial is adapted from the training materials and documentation produced by CZID at [https://czid.org/](https://czid.org/). 
+This tutorial was orginally developed by Sarah Buddle for the Wellcome Connecting Science course in [Genomics for Clinical Virology](https://github.com/WCSCourses/GCV_2025). The second section of the tutorial is adapted from the publicly available training materials and documentation produced by CZID at [https://czid.org/](https://czid.org/). 
 
 
 
