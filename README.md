@@ -5,8 +5,8 @@
 ## 2–7 March 2025, Wellcome Genome Campus, UK
 
 [Wellcome Connecting Science Course Run Website Link](https://coursesandconferences.wellcomeconnectingscience.org/event/genomics-and-clinical-virology-20250302/) <br /> 
-[Course Time Table](#) <br /> 
-[Course Informatics Guide](#)
+[Course Time Table](https://github.com/WCSCourses/GCV_2025/blob/main/GCV_Timetabe_17Feb2025.pdf) <br /> 
+[Course Informatics Guide](https://github.com/WCSCourses/GCV_2025/blob/main/GCV_2025_InformaticsGuide.md)
 
 Master cutting-edge genomics and bioinformatics approaches to advance viral diagnostics and investigation
 
