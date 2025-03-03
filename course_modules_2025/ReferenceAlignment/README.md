@@ -82,7 +82,7 @@ In this session, we will be processing Illumina paired end reads data from hepat
 The tools we will be using (bwa, samtools, etc) have been installed into a dedicated conda environment which we need to activate first:
 
 ```
-conda activate samtools
+conda activate samtools_env
 ```
 
 Next, we will need to move into the correct folder:
