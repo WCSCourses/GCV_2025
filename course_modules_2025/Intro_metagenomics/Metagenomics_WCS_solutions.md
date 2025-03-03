@@ -4,6 +4,8 @@
 <details>
 <summary><b>Solution</b></summary>
 <pre>
+ cd ~/metagenomics
+ 
  trim_galore -q 15 --length 60 --paired ~/metagenomics/data/sample1_1.fq.gz ~/metagenomics/data/sample1_2.fq.gz
  trim_galore -q 15 --length 60 --paired ~/metagenomics/data/neg_control_1.fq.gz ~/metagenomics/data/neg_control_2.fq.gz
 </pre>
@@ -101,7 +103,7 @@ Sample1 contains human mastadenovirus F and cytomegalovirus.
 The negative control also contains ~5 reads of cytomegalovirus so this is probably a contaminant. Therefore, we would report only the adenovirus clinically.
 </details>
 
-**11.    How can you tell which reads were assigned to Human mastadenovirus F?**
+**11.    How can you tell which reads were assigned to human mastadenovirus F?**
 <details>
 <summary><b>Solution</b></summary>
 In the ~/metagenomics/sample1_kraken_readclassifications.txt  file, the third column gives the taxon ID of the species that read was assigned to. The second column gives the read ID, which can be found in the read header in the fastq file.
@@ -118,6 +120,10 @@ You might have used a different read ID since there are multiple reads classifie
 </details>
 
 **13.    Use online blast to analyse this read. What do you notice?**
+<details>
+<summary><b>Solution</b></summary>
+The top BLAST results are all for human adenovirus F (or 40 which is a type of adenovirus F) and the scores such as query cover and percentage identity are good. This gives us more confidence that this read does come from adenovirus and therefore that the virus is in our sample.
+</details>
 
 **14.	Using what you've learnt in previous sessions, what further analyses you think might be useful on these datasets?**
 <details>
@@ -136,10 +142,18 @@ done
 </pre>
 </details>
 
-**16.	How could you adapt your answers to questions 11-12 to extract all the reads that were assigned to huamn mastadenovirus F?**
+**16.	How could you adapt your answers to questions 11-12 to extract all the reads that were assigned to human mastadenovirus F?**
 <details>
 <summary><b>Solution</b></summary>
-Ask if you need help with this.
+<pre>
+# Select all the reads that were assigned to adenovirus (3rd column is equal to 130309) and print 2nd column (read ID) to a file
+awk '$3==130309 {print $2}' ~/metagenomics/sample1_kraken_readclassifications.txt > ~/metagenomics/adenovirus_read_ids.txt
+</pre>
+<pre>
+# Extract the read IDs from the fastq file
+grep -F -f ~/metagenomics/adenovirus_read_ids.txt ~/metagenomics/sample1_nonhuman_1.fq -A 3 > ~/metagenomics/adenovirus_reads_1.fq
+grep -F -f ~/metagenomics/adenovirus_read_ids.txt ~/metagenomics/sample1_nonhuman_2.fq -A 3 > ~/metagenomics/adenovirus_reads_2.fq
+</pre>
 </details>
 
 **17.	How do Kraken2 and Bracken work?**
