@@ -65,6 +65,8 @@ samtools view -bf 4 -h ~/metagenomics/neg_control.sam > ~/metagenomics/neg_contr
 samtools fastq ~/metagenomics/sample1_nonhuman.bam -1 ~/metagenomics/sample1_nonhuman_1.fq -2 ~/metagenomics/sample1_nonhuman_2.fq
 samtools fastq ~/metagenomics/neg_control_nonhuman.bam -1 ~/metagenomics/neg_control_nonhuman_1.fq -2 ~/metagenomics/neg_control_nonhuman_2.fq
 ```
+Be aware if you use this samtools command elsewhere, it will extract reads that didn't align in pairs to the genome, but it is fine for our purposes.
+
 You can ignore this error message if it appears:
 ```
 samtools: /home/manager/miniconda3/envs/bioinfo_env/bin/../lib/libtinfow.so.6: no version information available (required by samtools)
@@ -169,6 +171,9 @@ The taxon ID number of Human mastadenovirus F is 130309.
 </details>
 
 **12.    Choose a read that was assigned to adenovirus. How could you extract the entry corresponding to this read from the nonhuman fastq file?**
+
+You can extract the read from either one of the paired end files.
+
 <details>
 <summary><b>Clues</b></summary>
 Try using grep. How many lines correspond to each read in a fastq file? What grep options could you use to extract all these lines?
@@ -183,7 +188,7 @@ Your grep command won't work if you're searching a fq.gz (gzipped) file. Using t
 
 <details>
 <summary><b>Clues</b></summary>
-Go to https://blast.ncbi.nlm.nih.gov/ and select nucleotide blast. Paste the read sequence from the previous question into the box and click submit. 
+Go to https://blast.ncbi.nlm.nih.gov/ and select nucleotide blast. Paste the read sequence from the previous question into the box, leaving the other options as they are, and click submit. 
 </details>
 
 **14.	Using what you've learnt in previous sessions, what further analyses you think might be useful on these datasets? (No need to run them.)**
@@ -200,7 +205,11 @@ How would you find out where the reads come from in the viral genome?
 Try writing a for loop in bash.
 </details>
 
-**16.	How could you adapt your answers to questions 11-12 to extract all the reads that were assigned to huamn mastadenovirus F?**
+**16.	How could you adapt your answers to questions 11-12 to extract all the reads that were assigned to human mastadenovirus F?**
+<details>
+<summary><b>Clues</b></summary>
+You'll need the commands awk and grep. Use the material from the Introduction to Linux course and online searches to help you.
+</details>
 
 **17.	How do Kraken2 and Bracken work?**
 
