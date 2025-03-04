@@ -339,6 +339,8 @@ samtools view -c -F2308 1a.bam
 
 For small RNA viruses, secondary and supplementary alignments tend to be rare, but it is important to know the distinction between mapped **reads** and mapped read **alignments**.
 
+**NB:** This is a simulated sample so the reads are very good. There should be 0 unmapped reads and no secondary or supplementary read alignments. Samtools is capable of doing so much more, **samtools idxstats** and **samtools flagstat** are useful commands to give you similar are more read mapping statistics from a BAM file.
+
 # 3: Coverage Plots
 
 We will now be checking our reference assembly from the previous session. We will use tools to generate summary statistics of the depth and breadth of the coverage across the genome, coverage plots, and visualisation of our assembly using tools such as Tablet and weeSAM. Later sessions of the course will cover how to call the consensus sequence and variants.
@@ -391,6 +393,8 @@ Let’s run weeSAM on our samples:
 ```
 weeSAM --bam 1a.bam --html 1a
 ```
+
+**NB:** Ignore the SyntaxWarning: invalid escape sequence - message - this is related to the install on this VM, and can be safely ignored
 
 An explanation of this command is:
 
@@ -493,10 +497,10 @@ Tablet requires three files:
 2.	A bam index file, e.g. 1a.bam.bai
 3.	A reference sequence file: e.g. 1a\_hcv\_ref.fasta
 
-To use tablet, we need to exit the samtools conda environment we were using previously:
+To use tablet, we need to use a different conda environment where tablet is installed:
 
 ```
-conda deactivate
+conda activate bioinformatics_env
 ```
 
 To launch Tablet, type:
