@@ -53,9 +53,11 @@ bwa mem -t 14 my_reference_file.fasta my_read_file_1.fastq my_read_file_2.fastq 
 
 A few Linux tips to remember:
 
-1.	Use the **Tab button** to automatically complete filenames – especially long ones
+1.	Use the **Tab button** to automatically complete filenames/filepaths – especially long ones
 2.	Use the **Up Arrow** to scroll through your previous commands, it enables you to easily re-run or re-use/change/correct old commands
-3.	**Case matters**, the following file names are all different:
+3.	You have to use the **Left** and **Right** arrow buttons to move back and forth along a command - for example if you want to reuse a command but fix a typo or change a filename
+4.	You can hit **enter** at any position within the command line - you do not to be at the end
+5.	**Case matters**, the following file names are all different:
 
 ```
 Myfile.txt
@@ -572,7 +574,7 @@ Remember that you need to close Tablet down in order to get your command line ba
 
 Either click on the red cross in the top left hand corner, or click the Tablet icon (red circle) (located above Open Assembly) and select Exit Tablet.
 
-6: Consensus Extra
+# 6: Consensus Extra
 
 Consensus and variant calling is covered later in the course, but if you have wizzed through this and want to know how to create a consensus sequence we can use a tools called [iVar](https://andersen-lab.github.io/ivar/html/manualpage.html).
 
