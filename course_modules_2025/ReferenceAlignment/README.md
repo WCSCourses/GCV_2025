@@ -521,7 +521,7 @@ We want to load in our read alignment from the HCV 1a genome. So **Click** on th
 
 ![](https://github.com/WCSCourses/GCV23/blob/main/modules/ReferenceAlignment/Tablet2.png)
 
-This will launch the Open Assembly window, **Click** **Browse** and then **navigate** to your **~/Richard/HCV/** folder and **Select** the **1a.bam** file for **Primary Assembly**. Afterward, **Click** **Browse** and **select** the **1a\_hcv\_ref.fasta** file for **Reference/Consensus File**, before **Clicking** **Open**.
+This will launch the Open Assembly window, **Click** **Browse** and then **navigate** to your **~/Richard/HCV/HCV_Sim** folder and **Select** the **1a.bam** file for **Primary Assembly**. Afterward, **Click** **Browse** and **select** the **~/Richard/HCV/1a\_hcv\_ref.fasta** file for **Reference/Consensus File**, before **Clicking** **Open**.
 
 ![](https://github.com/WCSCourses/GCV23/blob/main/modules/ReferenceAlignment/Tablet3.png)
 
