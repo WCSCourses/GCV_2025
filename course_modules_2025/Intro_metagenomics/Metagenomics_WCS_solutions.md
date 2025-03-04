@@ -1,6 +1,6 @@
 # Solutions
 
-**1.	Write a command to trim adaptors and low quality regions from your data.**
+**1.	Write a command using trim_galore to trim adaptors and low quality regions from your data.**
 <details>
 <summary><b>Solution</b></summary>
 <pre>
