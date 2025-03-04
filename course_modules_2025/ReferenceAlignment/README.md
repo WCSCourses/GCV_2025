@@ -55,9 +55,9 @@ A few Linux tips to remember:
 
 1.	Use the **Tab button** to automatically complete filenames/filepaths – especially long ones
 2.	Use the **Up Arrow** to scroll through your previous commands, it enables you to easily re-run or re-use/change/correct old commands
-3.	You have to use the **Left** and **Right** arrow buttons to move back and forth along a command - for example if you want to reuse a command but fix a typo or change a filename
-4.	You can hit **enter** at any position within the command line - you do not to be at the end
-5.	**Case matters**, the following file names are all different:
+3.	You have to use the **Left** and **Right** arrow buttons to move back and forth along a command (you can't use the mouse for this) - for example if you want to reuse a command but fix a typo or change a filename
+4.	You can hit **enter** at any position within the command line - you do not need to be at the end
+5.	**Case matters**: the following file names are all different:
 
 ```
 Myfile.txt
