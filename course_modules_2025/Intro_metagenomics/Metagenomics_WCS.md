@@ -30,14 +30,14 @@ The first step in most analysis protocols for sequencing data is quality control
 
 The files are available in the folder ~/metagenomics/data
 
-**1.	Write a command to trim adaptors and low quality regions from your data.**
+**1.	Write a command using trim_galore to trim adaptors and low quality regions from your data.**
 
 Use your notes from a previous session on this course.
 
 <details>
 <summary><b>Clues</b></summary>
     
-Try using trim_galore from the FileFormats-QC session.    
+Try adapting the trim_galore command from the FileFormats-QC session.    
 </details>
 
 ## Human removal
