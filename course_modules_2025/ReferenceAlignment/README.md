@@ -572,6 +572,39 @@ Remember that you need to close Tablet down in order to get your command line ba
 
 Either click on the red cross in the top left hand corner, or click the Tablet icon (red circle) (located above Open Assembly) and select Exit Tablet.
 
+6: Consensus Extra
+
+Consensus and variant calling is covered later in the course, but if you have wizzed through this and want to know how to create a consensus sequence we can use a tools called [iVar](https://andersen-lab.github.io/ivar/html/manualpage.html).
+
+First we need to be in the bioinformatics conda environment:
+
+
+```
+conda activate bioinformatics_env
+```
+
+iVar uses samtools to 'pileup' the data first, with the results the 'piped' (this is what the | symbole means) into iVar where  consensus is called. The command it therefore quite long:
+
+```
+samtools mpileup -aa -A -d 0 -Q 0 1a.bam | ivar consensus -p 1a_consensus
+```
+
+An explanation of this command is:
+
+1.	**samtools mpileup**: first samtools is used to pileup the data - essentially counts the number of As Cs Gs Ts and Indels at each position
+2.	**-aa**: tells samtools to output the results for Absolutely All positions - even those with 0 coverage
+3.	**-A**: means include orphan reads (e.g. a paired read whose pair did not map)
+4.	**-d 0**: disables the samtools max depth of 8000 to stop it subsampling the data (viral data is often v high depth)
+5.	**-Q 0**: minimum base quality of 0 - so use all the data
+6.	**|**: pipe the results of samtools mpileup into ...
+7.	**ivar**: the ivar tool
+8.	**consensus**: we use the consensus function within ivar
+9.	**-p 1a_consensus**: prefix for naming the output consensus file
+
+This command will create two files:
+
+1.	**1a_consensus.fa**: the consesnsus sequence in FASTA format
+2.	**1a_consensus.qual.txt**: text file of iVar calculated phred quality score for each base in the consensus
 
 
  
