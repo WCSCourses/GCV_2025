@@ -74,7 +74,7 @@ samtools: /home/manager/miniconda3/envs/bioinfo_env/bin/../lib/libtinfow.so.6: n
 
 ## Classification
 
-Now you’ve performed quality control and removed the human reads, we’re ready to run a classifier to determine what species are present by comparison to a reference database. We’re going to use the programs kraken2 and bracken, which are some of the most widely used tools for this purpose.
+Now you’ve performed quality control and removed the human reads, we’re ready to run a classifier to determine what species are present by comparison to a reference database. We’re going to use the programs kraken2 and bracken, which are some of the most widely used tools for this purpose and run very fast.
 Kraken2 and Bracken need a database of known reference sequences. This can be found in the ~/metagenomics/kraken_db directory. If you’re trying this yourself on your own computer, you can download prebuilt databases from: https://benlangmead.github.io/aws-indexes/k2
 Whenever you run a new bioinformatics tool, it’s a good idea to look at search for the manual online. You can usually find out how to run the tool using the help command, for example:
 
@@ -108,7 +108,7 @@ Look at the kraken2 manual at https://github.com/DerrickWood/kraken2/wiki/Manual
     
 </details>
 
-Once you’ve run kraken2, you can perform post-processing with bracken. Bracken takes into account information from all the reads and may reassign some reads to better fit the overall profile.
+Once you’ve run kraken2, you can perform post-processing with bracken. Kraken2 sometimes produces lots of misclassifications, meaning you can get thousands of species at a low level, many of which won't be real. Bracken takes into account information from all the reads and may reassign some reads to better fit the overall profile, and generally reduces the number of misclassifications.
 
 **7.	Write a command to run bracken on your kraken2 output.**
 
@@ -158,7 +158,7 @@ Are there any species that are present in both the sample and negative control?
 
 Sometimes you might want to extract the reads that were classified as a particular virus for further analysis.
 
-**11.    How can you tell which reads were assigned to Human mastadenovirus F?**
+**11.    How can you tell which reads were assigned to human mastadenovirus F?**
 
 <details>
 <summary><b>Clues</b></summary>
