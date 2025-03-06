@@ -2,6 +2,21 @@
 
 # Genomics and Clinical Virology 2025 Informatics Guide
 
+# Mega Fix
+
+```bash
+cd ~/Downloads/
+
+wget http://kr.archive.ubuntu.com/ubuntu/pool/universe/g/gconf/libgconf-2-4_3.2.6-6ubuntu1_amd64.deb
+
+wget http://kr.archive.ubuntu.com/ubuntu/pool/universe/g/gconf/gconf2-common_3.2.6-6ubuntu1_all.deb
+
+sudo dpkg -i gconf2-common_3.2.6-6ubuntu1_all.deb
+
+sudo dpkg -i libgconf-2-4_3.2.6-6ubuntu1_amd64.deb
+```
+
+
 ## **Software Used During the Course**
 
 | Software | Version (if not latest) | Module |
