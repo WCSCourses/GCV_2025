@@ -21,7 +21,7 @@ sudo dpkg -i libgconf-2-4_3.2.6-6ubuntu1_amd64.deb
 ```
 cd ~/Downloads/
 
-https://github.com/ddarriba/modeltest/files/6192913/modeltest-ng-0.1.7-static.tar.gz
+wget https://github.com/ddarriba/modeltest/files/6192913/modeltest-ng-0.1.7-static.tar.gz
 
 tar -xvzf modeltest-ng-0.1.7-static.tar.gz
 
