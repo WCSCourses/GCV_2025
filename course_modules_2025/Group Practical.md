@@ -66,7 +66,7 @@ bwa mem ~/Data-Sreenu/HCV\ genotypes/hcvGenotypes.fa file-1.fq file-2.fq|samtool
 
 Check the mapping of the reads to all the references. Sort the results according to the genome coverage.
 ```
-samtools coverage output.bam |sort -rgk4
+samtools coverage output.bam |sort -rgk6
 ```
 
 
