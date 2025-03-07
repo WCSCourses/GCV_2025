@@ -128,7 +128,31 @@ Are there any drugs to avoid?
 
 
 
-If you have time, check for other viruses in the samples using the steps provided in the metagenomic practicals. 
+If you have time, check for other viruses in the samples using the steps provided in the metagenomic practicals using kraken2.
+
+### Running kraken2
+
+Download the kraken database
+
+```
+mkdir ~/kraken_viral_db
+cd ~/kraken_viral_db/
+wget https://genome-idx.s3.amazonaws.com/kraken/k2_viral_20241228.tar.gz
+tar -xzvf k2_viral_20241228.tar.gz
+```
+
+Go to your sequence directory and run kraken2
+
+```
+cd ~/Practicals/
+kraken2 -db ~/kraken_viral_db --paired file-1.fq file-2.fq --report kraken-report.txt > krakenRes.txt
+```
+Check the `kraken-report.txt` file to see the results.  If you want to take only species entries from the results...
+
+```
+awk '$4~/^S/' kraken-report.txt
+```
+
 
 ---
 
