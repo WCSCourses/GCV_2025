@@ -127,3 +127,13 @@ Are there any drugs to avoid?
 
 
 If you have time, check for other viruses in the samples using the steps provided in the metagenomic practicals. 
+
+---
+
+### Presentation:
+Download the presentation template from
+
+https://tinyurl.com/GCV25template
+
+Download the file and answer the questions in the presentation template. Save the presentation on the Google Drive.
+
