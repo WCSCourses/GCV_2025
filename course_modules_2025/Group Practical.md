@@ -1,3 +1,6 @@
+# Group Practical
+
+
 In this group project, you will analyse the genome sequence data of the Hepatitis C Virus (HCV) you generated using Illumina sequencing. Please download the data according to your sample numbers. 
 
 
@@ -15,10 +18,9 @@ Aims: The aims of the project are to:
 
 ### Download the data
 
-Data is available on 
-https://tinyurl.com/GCV2025data
+Data is available on  https://tinyurl.com/GCV2025data . Download the files from `Metagenomics` folder. 
 
-Create a new directory in your home folder and move the downloaded data there. 
+Create a new directory in your home folder and move the downloaded data there (assuming your data is downloaded to `Downloads` folder and there are no other compressed files). 
 ```
 mkdir ~/Practicals/.
 mv ~/Downloads/*.gz ~/Practicals/.
