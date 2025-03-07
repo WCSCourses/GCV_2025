@@ -108,7 +108,7 @@ The `depth.txt` will be a three-column file with reference name, genomic locatio
 Generate the consensus sequence using `samtools consensus`
 
 ```
-samtools consensus --ff UNMAP,SECONDARY,QCFAIL,DUP  --show-del yes --show-ins yes output.bam -o consensusName.fa
+samtools consensus --ff UNMAP,SECONDARY,QCFAIL,DUP  --show-del no --show-ins yes output.bam -o consensusName.fa
 ```
 
 Please see the `samtools consensus`  help to learn more about the options used here. 
