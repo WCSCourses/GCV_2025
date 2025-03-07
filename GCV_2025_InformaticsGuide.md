@@ -2,7 +2,13 @@
 
 # Genomics and Clinical Virology 2025 Informatics Guide
 
-# Mega Fix
+## QuasiBAM commands in /usr/local/bin 
+```bash
+chmod 755 QuasiBAM.py
+sed -i ‘s/\r//’ QuasiBAM.py
+```
+
+## Mega Fix
 
 ```bash
 cd ~/Downloads/
@@ -16,9 +22,9 @@ sudo dpkg -i gconf2-common_3.2.6-6ubuntu1_all.deb
 sudo dpkg -i libgconf-2-4_3.2.6-6ubuntu1_amd64.deb
 ```
 
-# ModelTest Fix
+## ModelTest Fix
 
-```
+```bash
 cd ~/Downloads/
 
 wget https://github.com/ddarriba/modeltest/files/6192913/modeltest-ng-0.1.7-static.tar.gz
